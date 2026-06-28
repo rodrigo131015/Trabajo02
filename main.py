@@ -2,22 +2,32 @@ import sys, matplotlib.pyplot as plt, networkx as nx
 from matplotlib.patches import FancyArrowPatch
 
 # === Definición del DFA ===
-states = {"q0","q1","q2","q3","q4"}
-alphabet = {"a","b"}
-delta = {("q0","a"):"q1", 
-        ("q1","a"):"q4", 
-        ("q1","b"):"q4", 
-        ("q2","a"):"q0", 
-        ("q2","b"):"q1", 
+states = {"q1","q2","q3","q4","q5","q6","q7","q8","q9","q10"}
+alphabet = {"a","b","c"}
+delta = {("q1","a"):"q2", 
+        ("q1","b"):"q3", 
+        ("q2","a"):"q2", 
+        ("q2","b"):"q3", 
+        ("q2","c"):"q4", 
+        ("q3","a"):"q3", 
         ("q3","b"):"q2", 
-        ("q4","a"):"q4", 
-        ("q4","b"):"q4"}
+        ("q3","c"):"q4",
+        ("q4","a"):"q5", 
+        ("q4","b"):"q6", 
+        ("q5","a"):"q6", 
+        ("q5","b"):"q7", 
+        ("q6","a"):"q5",
+        ("q6","b"):"q7",
+        ("q7","a"):"q8", 
+        ("q7","b"):"q9", 
+        ("q8","a"):"q10", 
+        ("q9","a"):"q10",}
 
-q0, F = "q0", {"q4"}
+q1, F = "q1", {"q10"}
 
 # === Simulación ===
 def run(s):
-    q, steps = q0, [q0]
+    q, steps = q1, [q1]
     for i,ch in enumerate(s):
         if (q,ch) not in delta: raise ValueError(f"Sin transición desde {q} con '{ch}' en pos {i}")
         q = delta[(q,ch)]; steps.append(q)
